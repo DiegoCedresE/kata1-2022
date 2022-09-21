@@ -1,5 +1,7 @@
 package kata1;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -7,15 +9,15 @@ import java.util.GregorianCalendar;
 
 public class Person {
     private final String name;
-    private final Calendar birthdate;
+    private final LocalDate birthdate;
     private final long MILLISECONS_PER_YEAR = (long) (365.25 * 24 * 3600 * 1000 );
 
-    public Person(String name, Calendar birthdate) {
+    public Person(String name, LocalDate birthdate) {
         this.name = name;
         this.birthdate = birthdate;
     }
 
-    public Calendar getBirthdate() {
+    public LocalDate getBirthdate() {
         return birthdate;
     }
 
@@ -24,8 +26,8 @@ public class Person {
     }
     
     public int getAge(){
-        Calendar today = GregorianCalendar.getInstance();
-        return (int) this.milliSecondsToYear(today.getTimeInMillis() - birthdate.getTimeInMillis());
+        int today = Period.between(birthdate, LocalDate.now()).getYears();
+        return today;
     }
     
     private long milliSecondsToYear(long milles){
